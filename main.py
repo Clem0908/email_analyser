@@ -31,6 +31,14 @@ def checkSpyingPixel(email: str):
         for i in range(0,len(res)):
             print("\t- "+str(res[i]))
 
+    if "width=\"1\" height=\"1\"" in email:
+        
+        print("\n-> Spying pixel found !")
+        pattern = re.compile("<img [a-zA-Z0-9./:?=\"_]* width=\"1\" height=\"1\">",flags=re.DOTALL)
+        res = pattern.findall(email)
+        for i in range(0,len(res)):
+            print("\t- "+str(res[i]))
+
     return
 
 if __name__ == "__main__":
