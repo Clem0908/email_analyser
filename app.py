@@ -59,7 +59,6 @@ def checkSpyingPixel(email: str):
         for i in range(0,len(find)):
             find[i] = find[i].replace("<","&lt;")
             find[i] = find[i].replace(">","&gt;")
-            print(find[i])
             res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
 
