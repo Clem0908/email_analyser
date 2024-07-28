@@ -15,9 +15,9 @@ def checkTrackers(email: str):
     find = pattern.findall(email)
     res += "<table>"
     for i in range(0,len(find)):
-        find[i].replace("<","&lt;")
-        find[i].replace(">","&gt;")
-        res += "<tr><td>"+"&#8226 "+str(find[i])+"</td></tr>"
+        find[i] = find[i].replace("<","&lt;")
+        find[i] = find[i].replace(">","&gt;")
+        res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
     res += "</table>"
 
     return res
@@ -33,9 +33,9 @@ def checkSpyingPixel(email: str):
         find = pattern.findall(email)
         res += "<table>"
         for i in range(0,len(find)):
-            find[i].replace("<","&lt;")
-            find[i].replace(">","&gt;")
-            res += "<tr><td>"+"&#8226 "+str(find[i])+"</td></tr>"
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
     
     if "width='1' height='1'" in email:
@@ -45,9 +45,9 @@ def checkSpyingPixel(email: str):
         find = pattern.findall(email)
         res += "<table>"
         for i in range(0,len(find)):
-            find[i].replace("<","&lt;")
-            find[i].replace(">","&gt;")
-            res += "<tr><td>"+"&#8226 "+str(find[i])+"</td></tr>"
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
 
     if "width=\"1\" height=\"1\"" in email:
@@ -57,9 +57,10 @@ def checkSpyingPixel(email: str):
         find = pattern.findall(email)
         res += "<table>"
         for i in range(0,len(find)):
-            find[i].replace("<","&lt;")
-            find[i].replace(">","&gt;")
-            res += "<tr><td>"+"&#8226 "+str(find[i])+"</td></tr>"
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            print(find[i])
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
 
     if "width=\"1px\" height=\"1px\"" in email:
@@ -69,9 +70,9 @@ def checkSpyingPixel(email: str):
         find = pattern.findall(email)
         res += "<table>"
         for i in range(0,len(find)):
-            find[i].replace("<","&lt;")
-            find[i].replace(">","&gt;")
-            res += "<tr><td>"+"&#8226 "+str(find[i])+"</td></tr>"
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
 
     return res
