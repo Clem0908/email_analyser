@@ -1,2 +1,2 @@
 #!/bin/sh
-./venv/bin/python ./main.py
+./venv/bin/python -m flask run 
