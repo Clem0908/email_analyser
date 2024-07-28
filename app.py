@@ -28,7 +28,7 @@ def checkSpyingPixel(email: str):
 
     if "width=1 height=1" in email:
         
-        res += "<p>Spying pixel found !<br></p>")
+        res += "<p>Spying pixel found !<br></p>"
         pattern = re.compile("<img [a-zA-Z0-9./:?=\"_]* width=1 height=1>",flags=re.DOTALL)
         find = pattern.findall(email)
         res += "<table>"
@@ -40,7 +40,7 @@ def checkSpyingPixel(email: str):
     
     if "width='1' height='1'" in email:
 
-        res += "<p>Spying pixel found !<br></p>")       
+        res += "<p>Spying pixel found !<br></p>"       
         pattern = re.compile("<img [a-zA-Z0-9./:?=\"_]* width='1' height='1'>",flags=re.DOTALL)
         find = pattern.findall(email)
         res += "<table>"
@@ -52,7 +52,7 @@ def checkSpyingPixel(email: str):
 
     if "width=\"1\" height=\"1\"" in email:
 
-        res += "<p>Spying pixel found !<br></p>")
+        res += "<p>Spying pixel found !<br></p>"
         pattern = re.compile("<img [a-zA-Z0-9./:?=\"_]* width=\"1\" height=\"1\">",flags=re.DOTALL)
         find = pattern.findall(email)
         res += "<table>"
@@ -64,7 +64,7 @@ def checkSpyingPixel(email: str):
 
     if "width=\"1px\" height=\"1px\"" in email:
 
-        res += "<p>Spying pixel found !<br></p>")
+        res += "<p>Spying pixel found !<br></p>"
         pattern = re.compile("<img [a-zA-Z0-9./:?=\"_]* width=\"1px\" height=\"1px\">",flags=re.DOTALL)
         find = pattern.findall(email)
         res += "<table>"
