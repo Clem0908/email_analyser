@@ -7,11 +7,11 @@ from flask import request
 def checkMailHeaders(email: str):
 
     res = ""
-    if "spf\\=pass" not in email:
+    if "spf=pass" not in email:
         res += "<p>SPF: [!]</p>"
-    if "dkim\\=pass" not in email:
+    if "dkim=pass" not in email:
         res += "<p>DKIM: [!]</p>"
-    if "dmarc\\=pass" not in email:
+    if "dmarc=pass" not in email:
         res += "<p>DMARC: [!]</p>"
 
     return res
