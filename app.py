@@ -7,12 +7,30 @@ from flask import request
 def checkMailHeaders(email: str):
 
     res = ""
-    if "spf=pass" not in email:
+    if "spf=fail" or "spf=none" or "spf=softfail" or "spf=temperror" or "spf=permerror" in email:
         res += "<p>SPF: [!]</p>"
-    if "dkim=pass" not in email:
+    else:
+        res += "<p>SPF: [OK]</p>"
+    if "dkim=fail" or "dkim=none" or "dkim=softfail" or "dkim=temperror" or "dkim=permerror" in email:
         res += "<p>DKIM: [!]</p>"
-    if "dmarc=pass" not in email:
+    else:
+        res += "<p>DKIM: [OK]</p>"
+    if "dmarc=fail" or "dmarc=none" or "dmarc=softfail" or "dmarc=temperror" or "dmarc=permerror" in email:
         res += "<p>DMARC: [!]</p>"
+    else:
+        res += "<p>DMARC: [OK]</p>"
+
+    return res
+
+def displayMSSCLScore(email: str):
+    
+    res = ""
+    res += "<p>Microsoft anti-spam score (0 low - 9 high): "
+
+    pattern = re.compile("X-MS-Exchange-Organization-SCL: [0-9]",flags=re.DOTALL)
+    find = pattern.findall(email)
+    find[0] = find[0].replace("X-MS-Exchange-Organization-SCL: ", "")
+    res += "<b>"+str(find[0])+"</b></p>"
 
     return res
 
@@ -189,8 +207,10 @@ def analyse():
         res = ""
         res2 = ""
         resCMH = ""
+        resMSSCL = ""
         resCMH = checkMailHeaders(email)
+        resMSSCL = displayMSSCLScore(email)
         res = checkTrackers(email)
         res2 = checkSpyingPixel(email)
-        page = render_template('analyse.html')+resCMH+res+res2
+        page = render_template('analyse.html')+resCMH+resMSSCL+res+res2
         return page
