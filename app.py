@@ -7,15 +7,23 @@ from flask import request
 def checkMailHeaders(email: str):
 
     res = ""
-    if "spf=fail" or "spf=none" or "spf=softfail" or "spf=temperror" or "spf=permerror" in email:
+    pattern = re.compile(".*spf=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
+    find = pattern.findall(email)
+    if len(find) > 0:
         res += "<p>SPF: [!]</p>"
     else:
         res += "<p>SPF: [OK]</p>"
-    if "dkim=fail" or "dkim=none" or "dkim=softfail" or "dkim=temperror" or "dkim=permerror" in email:
+
+    pattern = re.compile(".*dkim=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
+    find = pattern.findall(email)
+    if len(find) > 0:
         res += "<p>DKIM: [!]</p>"
     else:
         res += "<p>DKIM: [OK]</p>"
-    if "dmarc=fail" or "dmarc=none" or "dmarc=softfail" or "dmarc=temperror" or "dmarc=permerror" in email:
+    
+    pattern = re.compile(".*dmarc=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
+    find = pattern.findall(email)
+    if len(find) > 0:
         res += "<p>DMARC: [!]</p>"
     else:
         res += "<p>DMARC: [OK]</p>"
@@ -127,6 +135,19 @@ def checkSpyingPixel(email: str):
             find[i] = find[i].replace(">","&gt;")
             res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
+
+    if "width: 1px; height: 1px;" in email:
+
+        res += "<p>Spying pixel found !<br></p>"
+        pattern = re.compile("<img [a-zA-Z0-9./:;?&=\"_\\- ]*width: 1px; height: 1px;[a-zA-Z0-9./:;?&=\"_\\- ]*>",flags=re.DOTALL)
+        find = pattern.findall(email)
+        res += "<table>"
+        for i in range(0,len(find)):
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
+        res += "</table>"
+
 
     if "height=3D\"1\" width=3D\"1\"" in email:
 
