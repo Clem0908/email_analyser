@@ -37,8 +37,9 @@ def displayMSSCLScore(email: str):
 
     pattern = re.compile("X-MS-Exchange-Organization-SCL: [0-9]",flags=re.DOTALL)
     find = pattern.findall(email)
-    find[0] = find[0].replace("X-MS-Exchange-Organization-SCL: ", "")
-    res += "<b>"+str(find[0])+"</b></p>"
+    if len(find) > 0:
+        find[0] = find[0].replace("X-MS-Exchange-Organization-SCL: ", "")
+        res += "<b>"+str(find[0])+"</b></p>"
 
     return res
 
