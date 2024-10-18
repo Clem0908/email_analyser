@@ -162,6 +162,42 @@ def checkSpyingPixel(email: str):
             res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
 
+    if "width=3D\"1\" height=3D\"1\"" in email:
+
+        res += "<p>Spying pixel found !<br></p>"
+        pattern = re.compile("<img [a-zA-Z0-9./:;?&=\"_\\- ]*width=3D\"1\" height=3D\"1\"[a-zA-Z0-9./:;&?=\"_\\- ]*>",flags=re.DOTALL)
+        find = pattern.findall(email)
+        res += "<table>"
+        for i in range(0,len(find)):
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
+        res += "</table>"
+
+    if "height=3D\"1px\" width=3D\"1px\"" in email:
+
+        res += "<p>Spying pixel found !<br></p>"
+        pattern = re.compile("<img [a-zA-Z0-9./:;?&=\"_\\- ]* height=3D\"1px\" width=3D\"1px\"[a-zA-Z0-9./:;&?=\"_\\- ]*>",flags=re.DOTALL)
+        find = pattern.findall(email)
+        res += "<table>"
+        for i in range(0,len(find)):
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
+        res += "</table>"
+
+    if "width=3D\"1px\" height=3D\"1px\"" in email:
+
+        res += "<p>Spying pixel found !<br></p>"
+        pattern = re.compile("<img [a-zA-Z0-9./:;?&=\"_\\- ]*width=3D\"1px\" height=3D\"1px\"[a-zA-Z0-9./:;&?=\"_\\- ]*>",flags=re.DOTALL)
+        find = pattern.findall(email)
+        res += "<table>"
+        for i in range(0,len(find)):
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
+        res += "</table>"
+
     if "width=0 height=0" in email:
         
         res += "<p>Spying pixel found !<br></p>"
