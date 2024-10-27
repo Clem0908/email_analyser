@@ -6,8 +6,9 @@ def senderIP(email: str):
     
     pattern = re.compile("sender IP is [0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}",flags=re.DOTALL)
     find = pattern.findall(email)
-    find[0] = find[0].replace("sender IP is ", "")
+    if len(find) != 0:
+        find[0] = find[0].replace("sender IP is ", "")
+        res += find[0]
 
-    res += find[0]+"</p>" 
-
+    res += "</p>"
     return res
