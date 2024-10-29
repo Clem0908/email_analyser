@@ -30,5 +30,5 @@ def analyse():
         res = checkTrackers.checkTrackers(email)
         resSP = checkSpyingPixel.checkSpyingPixel(email)
         resB64 = checkBase64.checkBase64(email)
-        page = render_template('analyse.html')+resIP+resCMH+resMSSCL+res+resSP+resB64
+        page = render_template('analyse.html')+resIP+resCMH+resMSSCL+res+resSP+resB64+"</body></html>"
         return page
