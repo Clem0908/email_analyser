@@ -10,7 +10,7 @@ This project tries to analyse RAW/source content of an email.
 - Python
 - Pip
 - sh for installation scripts
-    - If you do not have sh, the commands to install the requirements are given [here](# Installation commands)
+    - If you do not have sh, the commands to install the requirements are given in the section _Installation commands_
 # Installation commands
 - In a terminal:
 - `python -m venv ./venv`
