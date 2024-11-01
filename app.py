@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import base64 as base64Lib
 
 import displayMSSCLScore, checkMailHeaders, checkTrackers, checkSpyingPixel, checkBase64, senderIP
 
@@ -30,5 +31,30 @@ def analyse():
         res = checkTrackers.checkTrackers(email)
         resSP = checkSpyingPixel.checkSpyingPixel(email)
         resB64 = checkBase64.checkBase64(email)
-        page = render_template('analyse.html')+resIP+resCMH+resMSSCL+res+resSP+resB64+"</body></html>"
+        
+        if resB64 != "":
+
+            page = render_template('analyse.html')+resIP+resCMH+resMSSCL+res+resSP+"<p>Base64 encoding detected.<br>Please paste the encoded part to analyse into the <a href=\"http://127.0.0.1:5000/#Base64\">Base64</a> form.</p>"+resB64+"</body></html>"
+
+        else:
+
+            page = render_template('analyse.html')+resIP+resCMH+resMSSCL+res+resSP+"</body></html>"
+
+
+        return page
+
+@app.route("/base64", methods = ['POST'])
+def base64():
+
+    if request.method == 'POST':
+
+        email = str(request.form.get('base64'))
+        email = base64Lib.b64decode(email).decode('utf-8')
+        resCT = ""
+        resSP = ""
+        resCT = checkTrackers.checkTrackers(email)
+        resSP = checkSpyingPixel.checkSpyingPixel(email)       
+
+        page = render_template('base64.html')+resCT+resSP+"</body></html>"
+
         return page

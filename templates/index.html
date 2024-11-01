@@ -8,13 +8,24 @@
 </head>	
 <body>
 <header>
+<div id="#Home">
 <h1>Email analyser</h1>
+</div>
 </header>
 <form action="{{ url_for('analyse') }}" method="post">
-  <p>Put the content of your email right below:</p>
+  <p>Put the email source content right below:</p>
   <input type="text" name="email"/><br>
   <br>
   <input type="submit"/>
 </form>
+
+<div id="#Base64">
+<form action="{{ url_for('base64') }}" method="post">
+  <p>In case of a Base64 encoded email, put the Base64 part of it to analyse:</p>
+  <input type="text" name="base64"/><br>
+  <br>
+  <input type="submit"/>
+</form>
+</div>
 </body>
 </html>
