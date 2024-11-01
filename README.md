@@ -7,6 +7,7 @@ This project tries to analyse RAW/source content of an email.
 - Supports base64 encoded emails
 # Prerequisites for installation
 - Internet connection
+- Terminal emulator
 - Python
 - Pip
 - sh for installation scripts
