@@ -3,9 +3,9 @@ import re
 def checkSpyingPixel(email: str):
     
     # Starting regex for a spying pixel
-    SSP = "<img[a-zA-Z0-9./:;&?=\"_\\-~! ]*"
+    SSP = "<img[a-zA-Z0-9./:;&?=\"_\\-~!%# ]*"
     # Ending regex for a spying pixel
-    ESP = "[a-zA-Z0-9./:;&?=\"_\\-~! ]*>"
+    ESP = "[a-zA-Z0-9./:;&?=\"_\\-~!%# ]*>"
 
     res = "<p>Spying pixels, if found, will be listed below</p>"
 
