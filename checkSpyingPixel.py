@@ -3,9 +3,9 @@ import re
 def checkSpyingPixel(email: str):
     
     # Starting regex for a spying pixel
-    SSP = "<img[a-zA-Z0-9./:;&?=\"_\\-~!%# ]*"
+    SSP = "<img[a-zA-Z0-9.,/:;&?=\"_\\-~!%# ]*"
     # Ending regex for a spying pixel
-    ESP = "[a-zA-Z0-9./:;&?=\"_\\-~!%# ]*>"
+    ESP = "[a-zA-Z0-9.,/:;&?=\"_\\-~!%# ]*>"
 
     res = "<p>Spying pixels, if found, will be listed below</p>"
 
@@ -101,6 +101,28 @@ def checkSpyingPixel(email: str):
     if "width=3D\"1\" height=3D\"1\"" in email:
         
         pattern = re.compile(SSP+"width=3D\"1\" height=3D\"1\""+ESP,flags=re.DOTALL)
+        find = pattern.findall(email)
+        res += "<table>"
+        for i in range(0,len(find)):
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
+        res += "</table>"
+
+    if "height=3D\"0\" width=3D\"0\"" in email:
+
+        pattern = re.compile(SSP+"height=3D\"0\" width=3D\"0\""+ESP,flags=re.DOTALL)
+        find = pattern.findall(email)
+        res += "<table>"
+        for i in range(0,len(find)):
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
+        res += "</table>"
+
+    if "width=3D\"0\" height=3D\"0\"" in email:
+        
+        pattern = re.compile(SSP+"width=3D\"0\" height=3D\"0\""+ESP,flags=re.DOTALL)
         find = pattern.findall(email)
         res += "<table>"
         for i in range(0,len(find)):
