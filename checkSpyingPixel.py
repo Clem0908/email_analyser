@@ -86,6 +86,17 @@ def checkSpyingPixel(email: str):
             res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
 
+    if "width:1px;height:1px;" in email:
+
+        pattern = re.compile(SSP+"width:1px;height:1px;"+ESP,flags=re.DOTALL)
+        find = pattern.findall(email)
+        res += "<table>"
+        for i in range(0,len(find)):
+            find[i] = find[i].replace("<","&lt;")
+            find[i] = find[i].replace(">","&gt;")
+            res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
+        res += "</table>"
+
 
     if "height=3D\"1\" width=3D\"1\"" in email:
 
