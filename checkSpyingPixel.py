@@ -3,9 +3,9 @@ import re
 def checkSpyingPixel(email: str):
     
     # Starting regex for a spying pixel
-    SSP = "<img[a-zA-Z0-9.,/:;&?=\"_\\-~!%#\[\]{} ]*"
+    SSP = "<img[a-zA-Z0-9.,/:;&?=\"_\\-~!%#{} ]*"
     # Ending regex for a spying pixel
-    ESP = "[a-zA-Z0-9.,/:;&?=\"_\\-~!%#\[\]{} ]*>"
+    ESP = "[a-zA-Z0-9.,/:;&?=\"_\\-~!%#{} ]*>"
 
     res = "<p>Spying pixels, if found, will be listed below</p>"
 
@@ -42,9 +42,9 @@ def checkSpyingPixel(email: str):
             res += "<tr><td>"+"&#8226; "+str(find[i])+"</td></tr>"
         res += "</table>"
 
-    if "width=\"1\" height=\"1\"" in email:
+    if "height=\"1\" width=\"1\"" in email:
 
-        pattern = re.compile("<img width=\"1\" height=\"1\""+ESP,flags=re.DOTALL)
+        pattern = re.compile(SSP+"height=\"1\" width=\"1\""+ESP,flags=re.DOTALL)
         find = pattern.findall(email)
         res += "<table>"
         for i in range(0,len(find)):
