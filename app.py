@@ -43,6 +43,38 @@ def analyse():
 
         return page
 
+
+@app.route("/file", methods = ['POST'])
+def file():
+
+    if request.method == 'POST':
+
+        file = request.files['eml']
+        email = file.read()
+        email = email.decode("utf-8")
+        res = ""
+        resSP = ""
+        resCMH = ""
+        resMSSCL = ""
+        resB64 = ""
+        resIP = ""
+        resIP = senderIP.senderIP(email)
+        resCMH = checkMailHeaders.checkMailHeaders(email)
+        resMSSCL = displayMSSCLScore.displayMSSCLScore(email)
+        res = checkTrackers.checkTrackers(email)
+        resSP = checkSpyingPixel.checkSpyingPixel(email)
+        resB64 = checkBase64.checkBase64(email)
+        
+        if resB64 != "":
+
+            page = render_template('file.html')+resIP+resCMH+resMSSCL+res+resSP+"<p>Base64 encoding detected.<br>Please paste the encoded part to analyse into the <a href=\"http://127.0.0.1:5000/#Base64\">Base64</a> form.</p>"+resB64+"</body></html>"
+
+        else:
+
+            page = render_template('file.html')+resIP+resCMH+resMSSCL+res+resSP+"</body></html>"
+
+        return page
+
 @app.route("/base64", methods = ['POST'])
 def base64():
 
