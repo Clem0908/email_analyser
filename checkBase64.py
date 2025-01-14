@@ -1,8 +1,6 @@
 import re
 import base64
 
-import checkTrackers, checkSpyingPixel
-
 def checkBase64(email: str):
 
     ret = ""

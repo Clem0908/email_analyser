@@ -3,7 +3,7 @@ from flask import render_template
 from flask import request
 import base64 as base64Lib
 
-import displayMSSCLScore, checkMailHeaders, checkTrackers, checkSpyingPixel, checkBase64, senderIP
+import displayMSSCLScore, checkMailHeaders, listLinks, checkSpyingPixel, checkBase64, senderIP
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def analyse():
         resIP = senderIP.senderIP(email)
         resCMH = checkMailHeaders.checkMailHeaders(email)
         resMSSCL = displayMSSCLScore.displayMSSCLScore(email)
-        res = checkTrackers.checkTrackers(email)
+        res = listLinks.listLinks(email)
         resSP = checkSpyingPixel.checkSpyingPixel(email)
         resB64 = checkBase64.checkBase64(email)
         
@@ -61,7 +61,7 @@ def file():
         resIP = senderIP.senderIP(email)
         resCMH = checkMailHeaders.checkMailHeaders(email)
         resMSSCL = displayMSSCLScore.displayMSSCLScore(email)
-        res = checkTrackers.checkTrackers(email)
+        res = listLinks.listLinks(email)
         resSP = checkSpyingPixel.checkSpyingPixel(email)
         resB64 = checkBase64.checkBase64(email)
         
@@ -84,7 +84,7 @@ def base64():
         email = base64Lib.b64decode(email).decode('utf-8')
         resCT = ""
         resSP = ""
-        resCT = checkTrackers.checkTrackers(email)
+        resCT = listLinks.listLinks(email)
         resSP = checkSpyingPixel.checkSpyingPixel(email)       
 
         page = render_template('base64.html')+resCT+resSP+"</body></html>"

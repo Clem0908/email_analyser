@@ -6,23 +6,23 @@ def checkMailHeaders(email: str):
     pattern = re.compile(".*spf=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
     find = pattern.findall(email)
     if len(find) > 0:
-        res += "<p>SPF: [!]</p>"
+        res += "<p><b>SPF:</b> [!]</p>"
     else:
-        res += "<p>SPF: [OK]</p>"
+        res += "<p><b>SPF:</b> [OK]</p>"
 
     pattern = re.compile(".*dkim=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
     find = pattern.findall(email)
     if len(find) > 0:
-        res += "<p>DKIM: [!]</p>"
+        res += "<p><b>DKIM:</b> [!]</p>"
     else:
-        res += "<p>DKIM: [OK]</p>"
+        res += "<p><b>DKIM:</b> [OK]</p>"
     
     pattern = re.compile(".*dmarc=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
     find = pattern.findall(email)
     if len(find) > 0:
-        res += "<p>DMARC: [!]</p>"
+        res += "<p><b>DMARC:</b> [!]</p>"
     else:
-        res += "<p>DMARC: [OK]</p>"
+        res += "<p><b>DMARC:</b> [OK]</p>"
 
     return res
 
