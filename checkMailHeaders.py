@@ -3,26 +3,23 @@ import re
 def checkMailHeaders(email: str):
 
     res = ""
-    pattern = re.compile(".*spf=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
+    pattern = re.compile("spf=\w+",flags=re.DOTALL)
     find = pattern.findall(email)
     if len(find) > 0:
-        res += "<p><b>SPF:</b> [!]</p>"
-    else:
-        res += "<p><b>SPF:</b> [OK]</p>"
+        spf = find[0].replace("spf=", "")
+        res += "<p><b>SPF: </b>"+spf+"</p>"
 
-    pattern = re.compile(".*dkim=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
+    pattern = re.compile("dkim=\w+",flags=re.DOTALL)
     find = pattern.findall(email)
     if len(find) > 0:
-        res += "<p><b>DKIM:</b> [!]</p>"
-    else:
-        res += "<p><b>DKIM:</b> [OK]</p>"
-    
-    pattern = re.compile(".*dmarc=(fail|none|softfail|temperror|permerror).*",flags=re.DOTALL)
+        dkim = find[0].replace("dkim=", "")
+        res += "<p><b>DKIM: </b>"+dkim+"</p>"
+
+    pattern = re.compile("dmarc=\w+",flags=re.DOTALL)
     find = pattern.findall(email)
     if len(find) > 0:
-        res += "<p><b>DMARC:</b> [!]</p>"
-    else:
-        res += "<p><b>DMARC:</b> [OK]</p>"
+        dmarc = find[0].replace("dmarc=", "")
+        res += "<p><b>DMARC: </b>"+dmarc+"</p>"
 
     return res
 
