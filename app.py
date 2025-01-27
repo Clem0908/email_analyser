@@ -3,7 +3,7 @@ from flask import render_template
 from flask import request
 import base64 as base64Lib
 
-import displayMSSCLScore, checkMailHeaders, listLinks, checkSpyingPixel, checkBase64, senderIP
+import checkMailHeaders, checkSpecificMailHeaders, listLinks, checkSpyingPixel, checkBase64, senderIP
 
 app = Flask(__name__)
 
@@ -22,23 +22,23 @@ def analyse():
         res = ""
         resSP = ""
         resCMH = ""
-        resMSSCL = ""
+        resCSMH = ""
         resB64 = ""
         resIP = ""
         resIP = senderIP.senderIP(email)
         resCMH = checkMailHeaders.checkMailHeaders(email)
-        resMSSCL = displayMSSCLScore.displayMSSCLScore(email)
+        resCSMH = checkSpecificMailHeaders.checkSpecificMailHeaders(email)
         res = listLinks.listLinks(email)
         resSP = checkSpyingPixel.checkSpyingPixel(email)
         resB64 = checkBase64.checkBase64(email)
         
         if resB64 != "":
 
-            page = render_template('analyse.html')+resIP+resCMH+resMSSCL+res+resSP+"<p>Base64 encoding detected.<br>Please paste the encoded part to analyse into the <a href=\"http://127.0.0.1:5000/#Base64\">Base64</a> form.</p>"+resB64+"</body></html>"
+            page = render_template('analyse.html')+resIP+resCMH+resCSMH+res+resSP+"<p>Base64 encoding detected.<br>Please paste the encoded part to analyse into the <a href=\"http://127.0.0.1:5000/#Base64\">Base64</a> form.</p>"+resB64+"</body></html>"
 
         else:
 
-            page = render_template('analyse.html')+resIP+resCMH+resMSSCL+res+resSP+"</body></html>"
+            page = render_template('analyse.html')+resIP+resCMH+resCSMH+res+resSP+"</body></html>"
 
 
         return page
@@ -55,23 +55,23 @@ def file():
         res = ""
         resSP = ""
         resCMH = ""
-        resMSSCL = ""
+        resCSMH = ""
         resB64 = ""
         resIP = ""
         resIP = senderIP.senderIP(email)
         resCMH = checkMailHeaders.checkMailHeaders(email)
-        resMSSCL = displayMSSCLScore.displayMSSCLScore(email)
+        resCSMH = checkSpecificMailHeaders.checkSpecificMailHeaders(email)
         res = listLinks.listLinks(email)
         resSP = checkSpyingPixel.checkSpyingPixel(email)
         resB64 = checkBase64.checkBase64(email)
         
         if resB64 != "":
 
-            page = render_template('file.html')+resIP+resCMH+resMSSCL+res+resSP+"<p>Base64 encoding detected.<br>Please paste the encoded part to analyse into the <a href=\"http://127.0.0.1:5000/#Base64\">Base64</a> form.</p>"+resB64+"</body></html>"
+            page = render_template('file.html')+resIP+resCMH+resCSMH+res+resSP+"<p>Base64 encoding detected.<br>Please paste the encoded part to analyse into the <a href=\"http://127.0.0.1:5000/#Base64\">Base64</a> form.</p>"+resB64+"</body></html>"
 
         else:
 
-            page = render_template('file.html')+resIP+resCMH+resMSSCL+res+resSP+"</body></html>"
+            page = render_template('file.html')+resIP+resCMH+resCSMH+res+resSP+"</body></html>"
 
         return page
 
