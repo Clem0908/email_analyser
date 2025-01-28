@@ -10,13 +10,10 @@ def listLinks(email: str):
     if len(find) > 0:
 
         res += "<p><b>Links found:</b><br></p>"
-        res += "<table>"
+        res += "<table border=solid cellpadding=\"15%\">"
 
         for i in range(0,len(find)):
-            
-            res += "<tr>"
-            res += "<td>"+find[i]+"</td>"
-            res += "</tr>"
+            res += "<tr><td>"+find[i]+"</td></tr>"
 
         res += "</table>"
 
