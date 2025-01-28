@@ -33,7 +33,7 @@ def checkSpecificMailHeaders(email: str):
 
     if len(find) > 0:
         res += "<tr><td>Vade Secure spam status</td>"
-        find[0] = find[0].replace("X-VRC-SPAM-STATUS: ", "")
+        find[0] = find[0].replace("X-VRC-SPAM-STATE: ", "")
         res += "<td> "+find[0]+" </td>"
 
     pattern = re.compile("X-BSC: \w+",flags=re.DOTALL)
