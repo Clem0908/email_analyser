@@ -4,7 +4,7 @@ def checkSpecificMailHeaders(email: str):
     
     res = "<h2>Headers: </h2><table border=solid cellpadding=\"15%\">"
 
-    pattern = re.compile("X-Originating-IP: [[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}]",flags=re.DOTALL)
+    pattern = re.compile("X-Originating-IP: [0-9.\\[\\]]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
     if len(find) > 0:
