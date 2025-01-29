@@ -4,6 +4,31 @@ def checkSpecificMailHeaders(email: str):
     
     res = "<h2>Headers: </h2><table border=solid cellpadding=\"15%\">"
 
+    pattern = re.compile("X-CSA-Complaints: [a-zA-Z0-9-_.@]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>Certified Senders Alliance<br>Must be equals to: whitelist-complaints@eco.de</td>"
+        find[0] = find[0].replace("X-CSA-Complaints: ", "")
+        find[0] = find[0].replace("<", "")
+        find[0] = find[0].replace(">", "")
+        res += "<td> "+find[0]+" </td>"
+
+    pattern = re.compile("List-Unsubscribe:\\s*<([^>]+)>(,\\s*<([^>]+)>)?",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>List Unsubscribe<br>Careful, only unsubscribe things you know you subscribed to</td>"
+        res += "<td> "+str(find[0])+" </td>"
+
+    pattern = re.compile("X-Report-Abuse: [a-z:/.A-WY-Z0-9?&%_=@<>+,\\- ]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>Report abuse</td>"
+        find[0] = find[0].replace("X-Report-Abuse: ", "")
+        res += "<td> "+find[0]+" </td>"
+
     pattern = re.compile("X-Originating-IP: [0-9.\\[\\]]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
@@ -57,6 +82,30 @@ def checkSpecificMailHeaders(email: str):
     if len(find) > 0:
         res += "<tr><td>OVH anti-spam score</td>"
         find[0] = find[0].replace("X-VR-SPAMSCORE: ", "")
+        res += "<td> "+find[0]+" </td>"
+
+    pattern = re.compile("X-OVH-Remote: [0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3} [a-z()0-9.-]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>OVH remote</td>"
+        find[0] = find[0].replace("X-OVH-Remote: ", "")
+        res += "<td> "+find[0]+" </td>"
+
+    pattern = re.compile("X-Ovh-Spam-Status: [a-zA-Z]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>OVH spam status</td>"
+        find[0] = find[0].replace("X-Ovh-Spam-Status: ", "")
+        res += "<td> "+find[0]+" </td>"
+
+    pattern = re.compile("X-Ovh-Spam-Reason: [a-zA-WY-Z:; ]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>OVH spam reason</td>"
+        find[0] = find[0].replace("X-Ovh-Spam-Reason: ", "")
         res += "<td> "+find[0]+" </td>"
 
     pattern = re.compile("X-VRC-SPAM-STATE: [a-zA-Z]*",flags=re.DOTALL)
