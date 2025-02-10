@@ -49,7 +49,7 @@ def checkSpecificMailHeaders(email: str):
     find = pattern.findall(email)
 
     if len(find) > 0:
-        res += "<tr><td>Microsoft anti-spam score (BCL: 0 low - 9 high)</td>"
+        res += "<tr><td>May be flag as spam Microsoft score (BCL: 0 low - 9 high)</td>"
         find[0] = find[0].replace("X-Microsoft-Antispam: BCL:", "")
         res += "<td> "+find[0]+" </td>"
 
