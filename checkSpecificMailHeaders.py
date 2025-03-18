@@ -13,6 +13,14 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("<", "")
         res += "<td> "+find[0]+" </td>"
 
+    pattern = re.compile("Subject: [^:]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>Subject</td>"
+        find[0] = find[0].replace("Subject: ", "")
+        res += "<td> "+find[0]+" </td>"
+
     pattern = re.compile("X-CSA-Complaints: [a-zA-Z0-9-_.@]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
