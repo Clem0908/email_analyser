@@ -8,6 +8,7 @@ def senderIP(email: str):
 
     if len(find) > 0:
 
+        find = list(dict.fromkeys(find))
         res += "<b>Detected IPs: </b><br><br><table border=solid><tr>"
 
         for i in range(0, len(find)):
