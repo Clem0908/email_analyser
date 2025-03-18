@@ -4,6 +4,15 @@ def checkSpecificMailHeaders(email: str):
     
     res = "<h2>Headers: </h2><table border=solid cellpadding=\"15%\">"
 
+    pattern = re.compile("From: [^>]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>From (can be changed by the sender)</td>"
+        find[0] = find[0].replace("From: ", "")
+        find[0] = find[0].replace("<", "")
+        res += "<td> "+find[0]+" </td>"
+
     pattern = re.compile("X-CSA-Complaints: [a-zA-Z0-9-_.@]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
