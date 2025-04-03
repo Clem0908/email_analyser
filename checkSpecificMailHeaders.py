@@ -38,12 +38,31 @@ def checkSpecificMailHeaders(email: str):
         res += "<tr><td>List Unsubscribe<br>Careful, only unsubscribe things you know you subscribed to</td>"
         res += "<td> "+str(find[0])+" </td>"
 
+    # X-Complaints-To
+    pattern = re.compile("X-Complaints-To:\\s*([^\s]+)",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>Complaints to</td>"
+        find[0] = find[0].replace("X-Complaints-To: ", "")
+        res += "<td> "+find[0]+" </td>"
+
+    # X-Report-Abuse
     pattern = re.compile("X-Report-Abuse: [a-z:/.A-WY-Z0-9?&%_=@<>+,\\- ]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
     if len(find) > 0:
         res += "<tr><td>Report abuse</td>"
         find[0] = find[0].replace("X-Report-Abuse: ", "")
+        res += "<td> "+find[0]+" </td>"
+    
+    # X-Report-Abuse-To
+    pattern = re.compile("X-Report-Abuse-To:\\s*<([^>]+)>",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>Report abuse to</td>"
+        find[0] = find[0].replace("X-Report-Abuse-To: ", "")
         res += "<td> "+find[0]+" </td>"
 
     pattern = re.compile("X-Originating-IP: [0-9.\\[\\]]*",flags=re.DOTALL)
@@ -76,7 +95,12 @@ def checkSpecificMailHeaders(email: str):
     if len(find) > 0:
         res += "<tr><td>Microsoft anti-spam score (SCL: 0 low - 9 high)</td>"
         find[0] = find[0].replace("X-MS-Exchange-Organization-SCL: ", "")
-        res += "<td> "+find[0]+" </td>"
+        if int(find[0]) < 3:
+            res += "<td style=\"color:green\"> "+find[0]+" </td>"
+        if int(find[0]) > 3 and int(find[0]) < 7:
+            res += "<td style=\"color:orangered\"> "+find[0]+" </td>"
+        else:
+            res += "<td style=\"color:red\"> "+find[0]+" </td>"
 
     pattern = re.compile("X-Microsoft-Antispam-Mailbox-Delivery: .*;RF:JunkEmail",flags=re.DOTALL)
     find = pattern.findall(email)
