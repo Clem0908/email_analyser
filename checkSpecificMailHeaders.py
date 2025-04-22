@@ -99,7 +99,7 @@ def checkSpecificMailHeaders(email: str):
             res += "<td style=\"color:green\"> "+find[0]+" </td>"
         if int(find[0]) > 3 and int(find[0]) < 7:
             res += "<td style=\"color:orangered\"> "+find[0]+" </td>"
-        else:
+        if int(find[0]) > 7:
             res += "<td style=\"color:red\"> "+find[0]+" </td>"
 
     pattern = re.compile("X-Microsoft-Antispam-Mailbox-Delivery: .*;RF:JunkEmail",flags=re.DOTALL)
