@@ -26,7 +26,7 @@ def checkMailHeaders(email: str):
     if len(find) > 0:
         dmarc = find[0].replace("dmarc=", "")
         if dmarc != "pass":
-            res += "<p style=\"color:red\"><b>DARC: </b>"+dmarc+"</p>"
+            res += "<p style=\"color:red\"><b>DMARC: </b>"+dmarc+"</p>"
         else:
             res += "<p style=\"color:green\"><b>DMARC: </b>"+dmarc+"</p>"
 
