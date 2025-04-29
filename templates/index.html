@@ -12,26 +12,45 @@
 <h1>Email analyser</h1>
 </div>
 </header>
+<div id="#analyse">
+<ul>
+<li>
 <form action="{{ url_for('analyse') }}" method="post">
   <p>Put the email source content right below:</p>
-  <input type="text" name="email"/><br>
+  <textarea rows="5" cols="50" type="text" name="email" maxlength="16777216">
+  </textarea><br>
   <br>
   <input type="submit"/>
 </form>
+</li>
+</ul>
+</div>
 
+<div id="#file">
+<ul>
+<li>
 <form action="{{ url_for('file') }}" method="post" enctype="multipart/form-data">
   <p>Or upload an .eml file (RFC 822):</p>
-  <input type="file" name="eml" accept=".eml,text/plain">
+  <input type="file" name="eml" accept=".eml,text/plain" maxlength="16777216"><br>
+  <br>
   <input type="submit">
 </form>
+</li>
+</ul>
+</div>
 
 <div id="#Base64">
+<ul>
+<li>
 <form action="{{ url_for('base64') }}" method="post">
   <p>In case of a Base64 encoded email, put the Base64 part of it to analyse:</p>
-  <input type="text" name="base64"/><br>
+  <textarea rows="5" cols="50" name="base64" maxlength="16777216">
+  </textarea><br>
   <br>
   <input type="submit"/>
 </form>
+</li>
+</ul>
 </div>
 </body>
 </html>

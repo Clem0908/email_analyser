@@ -3,9 +3,10 @@ from flask import render_template
 from flask import request
 import base64 as base64Lib
 
-import checkMailHeaders, checkSpecificMailHeaders, listLinks, checkSpyingPixel, checkBase64, senderIP
+import checkMailHeaders, checkSpecificMailHeaders, listLinks, checkSpyingPixel, checkBase64, senderIP, preProcessing
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 
 @app.route("/", methods = ['GET'])
 def root():
@@ -19,6 +20,7 @@ def analyse():
      if request.method == 'POST':
         
         email = str(request.form.get('email'))
+        email = preProcessing.preProcessing(email)
         res = ""
         resSP = ""
         resCMH = ""
@@ -52,6 +54,7 @@ def file():
         file = request.files['eml']
         email = file.read()
         email = email.decode("utf-8")
+        email = preProcessing.preProcessing(email)
         res = ""
         resSP = ""
         resCMH = ""
