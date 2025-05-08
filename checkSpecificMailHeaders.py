@@ -11,7 +11,7 @@ def checkSpecificMailHeaders(email: str):
     if len(find) > 0:
         res += "<tr><td>Received: SMTP from</td>"
         find[0] = find[0].replace("smtp.mailfrom=", "")
-        res += "<td> "+find[0]+" | <a href=\"https://www.virustotal.com/gui/domain/"+find[0]+"\">VirusTotal reputation</a></td></tr>"
+        res += "<td> "+find[0]+"</td></tr>"
 
     pattern = re.compile("From: [^>]*",flags=re.DOTALL)
     find = pattern.findall(email)
@@ -22,7 +22,7 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("<", "")
         res += "<td> "+find[0]+" </td>"
 
-    pattern = re.compile("Subject: [^:]*",flags=re.DOTALL)
+    pattern = re.compile("Subject: [^\r]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
     if len(find) > 0:
@@ -82,7 +82,7 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("X-Originating-IP: ", "")
         find[0] = find[0].replace("[", "")
         find[0] = find[0].replace("]", "")
-        res += "<td>"+find[0]+" | <a href=\"https://www.virustotal.com/gui/ip-address/"+find[0]+"\">VirusTotal reputation</a></td></tr>"
+        res += "<td>"+find[0]+"</td></tr>"
 
     pattern = re.compile("X-Sender-IP: [0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}",flags=re.DOTALL)
     find = pattern.findall(email)
@@ -90,7 +90,7 @@ def checkSpecificMailHeaders(email: str):
     if len(find) > 0:
         res += "<tr><td>Sender IP</td>"
         find[0] = find[0].replace("X-Sender-IP: ", "")
-        res += "<td>"+find[0]+" | <a href=\"https://www.virustotal.com/gui/ip-address/"+find[0]+"\">VirusTotal reputation</a></td></tr>"
+        res += "<td>"+find[0]+"</td></tr>"
 
     pattern = re.compile("X-Microsoft-Antispam: BCL:[0-9]{1,2}",flags=re.DOTALL)
     find = pattern.findall(email)

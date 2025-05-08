@@ -13,6 +13,8 @@ def listLinks(email: str):
         res += "<table border=solid cellpadding=\"15%\">"
 
         for i in range(0,len(find)):
+            find[i] = find[i].replace("<","")
+            find[i] = find[i].replace(">","")
             res += "<tr><td>"+find[i]+"</td></tr>"
 
         res += "</table>"

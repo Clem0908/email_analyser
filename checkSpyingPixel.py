@@ -9,18 +9,25 @@ def checkSpyingPixel(email: str):
     find = pattern.findall(email)
     
     if len(find) > 0:
-        res += "<h2><b>Spying pixels found</b></h2>"
+        res += "<h2 style=\"color:red\"><b>Spying pixels found</b></h2>"
 
     pattern = re.compile("<img [^>]*", flags=re.DOTALL)
     find = pattern.findall(email)
     
-    if len(find) > 0:
-        res += "<p><b>Images found:</b></p><table border=solid cellpadding=\"15%\">"
-        for i in range(0, len(find)):
-            find[i] = find[i].replace("<","&lt;")
-            find[i] = find[i].replace(">","&gt;")
-            res += "<tr><td>"+find[i]+"</td></tr>"
+    res += "<p><b>Images found:</b></p><table border=solid cellpadding=\"15%\">"
+    for i in range(0, len(find)):
+        find[i] = find[i].replace("<","")
+        find[i] = find[i].replace(">","")
+        res += "<tr><td>"+find[i]+"</td></tr>"
 
-        res += "</table>"
+    pattern = re.compile("<image [^>]*", flags=re.DOTALL)
+    find = pattern.findall(email)
+    
+    for i in range(0, len(find)):
+        find[i] = find[i].replace("<","")
+        find[i] = find[i].replace(">","")
+        res += "<tr><td>"+find[i]+"</td></tr>"
+
+    res += "</table>"
 
     return res
