@@ -1,5 +1,7 @@
 import re
 
+import knownIps
+
 def checkSpecificMailHeaders(email: str):
     
     res = "<h2>Headers: </h2><table border=solid cellpadding=\"15%\">"
@@ -13,13 +15,14 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("smtp.mailfrom=", "")
         res += "<td> "+find[0]+"</td></tr>"
 
-    pattern = re.compile("From: [^>]*",flags=re.DOTALL)
+    pattern = re.compile("From: [^>\r]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
     if len(find) > 0:
         res += "<tr><td>From (can be changed by the sender)</td>"
         find[0] = find[0].replace("From: ", "")
         find[0] = find[0].replace("<", "")
+        find[0] = find[0].replace("\r", "")
         res += "<td> "+find[0]+" </td>"
 
     pattern = re.compile("Subject: [^\r]*",flags=re.DOTALL)
@@ -74,6 +77,7 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("X-Report-Abuse-To: ", "")
         res += "<td> "+find[0]+" </td>"
 
+    # X-Originating-IP
     pattern = re.compile("X-Originating-IP: [0-9.\\[\\]]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
@@ -82,15 +86,20 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("X-Originating-IP: ", "")
         find[0] = find[0].replace("[", "")
         find[0] = find[0].replace("]", "")
-        res += "<td>"+find[0]+"</td></tr>"
+        kiik = knownIps.isKnown(find[0])
+        knownIps.addIp(find[0])
+        res += "<td>"+find[0]+kiik+"</td></tr>"
 
+    # X-Sender-IP
     pattern = re.compile("X-Sender-IP: [0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}",flags=re.DOTALL)
     find = pattern.findall(email)
 
     if len(find) > 0:
         res += "<tr><td>Sender IP</td>"
         find[0] = find[0].replace("X-Sender-IP: ", "")
-        res += "<td>"+find[0]+"</td></tr>"
+        kiik = knownIps.isKnown(find[0])
+        knownIps.addIp(find[0])
+        res += "<td>"+find[0]+kiik+"</td></tr>"
 
     pattern = re.compile("X-Microsoft-Antispam: BCL:[0-9]{1,2}",flags=re.DOTALL)
     find = pattern.findall(email)

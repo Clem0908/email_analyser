@@ -2,11 +2,17 @@ from flask import Flask
 from flask import render_template
 from flask import request
 import base64 as base64Lib
+import os
+from pickledb import PickleDB
 
 import checkMailHeaders, checkSpecificMailHeaders, listLinks, checkSpyingPixel, checkBase64, senderIP, preProcessing
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+
+if os.path.exists("./database/known_ips.db") == False:
+    db = PickleDB("./database/known_ips.db")
+    db.save()
 
 @app.route("/", methods = ['GET'])
 def root():
