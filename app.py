@@ -6,6 +6,7 @@ import os
 from pickledb import PickleDB
 
 import checkMailHeaders, checkSpecificMailHeaders, listLinks, checkSpyingPixel, checkBase64, senderIP, preProcessing
+import knownIps
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
@@ -99,3 +100,12 @@ def base64():
         page = render_template('base64.html')+resCT+resSP+"</body></html>"
 
         return page
+
+@app.route("/add-malicious-ip", methods = ['GET'])
+def addMaliciousIP():
+
+    if request.method == 'GET':
+        if request.args.get("ip") is None or request.args.get("ip") == "":
+            return "<h1>Incorrect 'ip' parameter</h1>"
+    knownIps.addIp(request.args.get("ip"))
+    return "<h1>IP: "+request.args.get("ip")+" added to the malicious list</h1><p>Return to <a href=\"http://127.0.0.1:5000/#Home\">home</a></p>"

@@ -17,6 +17,6 @@ def isKnown(ip: str):
     db = PickleDB("./database/known_ips.db")
     
     if db.get(ip) != None:
-        res += " | IP seen " + str(db.get(ip)) + " times before" 
+        res += " | IP flagged " + str(db.get(ip)) + " times before as malicious" 
         return res
     return res

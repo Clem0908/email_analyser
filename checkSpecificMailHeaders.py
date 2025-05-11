@@ -87,8 +87,7 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("[", "")
         find[0] = find[0].replace("]", "")
         kiik = knownIps.isKnown(find[0])
-        knownIps.addIp(find[0])
-        res += "<td>"+find[0]+kiik+"</td></tr>"
+        res += "<td>"+find[0]+kiik+" | <a href=\"http://127.0.0.1:5000/add-malicious-ip?ip="+find[0]+"\">Add</a> this IP to the malicious list"+"</td></tr>"
 
     # X-Sender-IP
     pattern = re.compile("X-Sender-IP: [0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}",flags=re.DOTALL)
@@ -98,8 +97,7 @@ def checkSpecificMailHeaders(email: str):
         res += "<tr><td>Sender IP</td>"
         find[0] = find[0].replace("X-Sender-IP: ", "")
         kiik = knownIps.isKnown(find[0])
-        knownIps.addIp(find[0])
-        res += "<td>"+find[0]+kiik+"</td></tr>"
+        res += "<td>"+find[0]+kiik+" | <a href=\"http://127.0.0.1:5000/add-malicious-ip?ip="+find[0]+"\">Add</a> this IP to the malicious list"+"</td></tr>"
 
     pattern = re.compile("X-Microsoft-Antispam: BCL:[0-9]{1,2}",flags=re.DOTALL)
     find = pattern.findall(email)
