@@ -2,7 +2,7 @@ import re
 
 def checkSpyingPixel(email: str):
     
-    CASES = "(width=[0-1]{1})|(width=\"[0-1]\"{1})|(width='[0-1]'{1})|(width=3D\"[0-1]\"{1})|(width=\"[0-1]{1}px\")|(width:[0-1]{1}px)|(width: [0-1]{1}px)|(width:[0-1]{1})|(width=3D=\'[0-1]{1}\')"
+    CASES = "(width=[0-1]{1})|(width=\"[0-1]\"{1})|(width='[0-1]'{1})|(width=3D\"[0-1]\"{1})|(width=\"[0-1]{1}px\")|(width:[0-1]{1}px)|(width: [0-1]{1}px)|(width:[0-1]{1})|(width=3D=\'[0-1]{1}\')|(width='1px')"
 
     res = ""
     pattern = re.compile(CASES, flags = re.DOTALL)
