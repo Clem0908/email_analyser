@@ -4,7 +4,7 @@ def listLinks(email: str):
     
     res = ""
    
-    pattern = re.compile("<a href[=]?[=]?[3]?[D]?\"([^\"]*)",flags=re.DOTALL)
+    pattern = re.compile("<a href[=]?[=]?[3]?[D]?[=]?\"([^\"]*)",flags=re.DOTALL)
     find = pattern.findall(email)
 
     if len(find) > 0:
