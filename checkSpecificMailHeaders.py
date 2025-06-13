@@ -115,7 +115,7 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("X-MS-Exchange-Organization-SCL: ", "")
         if int(find[0]) < 3:
             res += "<td style=\"color:green\"> "+find[0]+" </td>"
-        if int(find[0]) > 3 and int(find[0]) < 7:
+        if int(find[0]) > 3 and int(find[0]) <= 7:
             res += "<td style=\"color:orangered\"> "+find[0]+" </td>"
         if int(find[0]) > 7:
             res += "<td style=\"color:red\"> "+find[0]+" </td>"
