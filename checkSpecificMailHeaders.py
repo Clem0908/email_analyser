@@ -135,7 +135,7 @@ def checkSpecificMailHeaders(email: str):
         find[0] = find[0].replace("X-VR-SPAMSTATE: ", "")
         res += "<td> "+find[0]+" </td>"
 
-    pattern = re.compile("X-VR-SPAMSCORE: [0-9]*",flags=re.DOTALL)
+    pattern = re.compile("X-VR-SPAMSCORE: [-0-9]*",flags=re.DOTALL)
     find = pattern.findall(email)
 
     if len(find) > 0:
