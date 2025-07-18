@@ -6,6 +6,15 @@ def checkSpecificMailHeaders(email: str):
     
     res = "<h2>Headers: </h2><table border=solid cellpadding=\"15%\">"
 
+    # Date: header
+    pattern = re.compile("Date: [^\r]*",flags=re.DOTALL)
+    find = pattern.findall(email)
+
+    if len(find) > 0:
+        res += "<tr><td>Date</td>"
+        find[0] = find[0].replace("Date: ", "")
+        res += "<td> "+find[0]+"</td></tr>"
+
     # Received: smtp.mailfrom=
     pattern = re.compile("smtp.mailfrom=[^;]*",flags=re.DOTALL)
     find = pattern.findall(email)
