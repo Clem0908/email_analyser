@@ -7,8 +7,4 @@ def preProcessing(email: str):
         email = email.replace("=\r", "")
         email = email.replace("=3D\"", "=\"")
         
-        return email
-
-    else:
-
-        return email    
+    return email

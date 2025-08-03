@@ -1,6 +1,7 @@
 import re
 
 import knownIps
+import eadecoder
 
 def checkSpecificMailHeaders(email: str):
     
@@ -40,6 +41,7 @@ def checkSpecificMailHeaders(email: str):
     if len(find) > 0:
         res += "<tr><td>Subject</td>"
         find[0] = find[0].replace("Subject: ", "")
+        find[0] = eadecoder.utf8(find[0])
         res += "<td> "+find[0]+" </td>"
 
     pattern = re.compile("X-CSA-Complaints: [a-zA-Z0-9-_.@]*",flags=re.DOTALL)
@@ -106,7 +108,7 @@ def checkSpecificMailHeaders(email: str):
         res += "<tr><td>Sender IP</td>"
         find[0] = find[0].replace("X-Sender-IP: ", "")
         kiik = knownIps.isKnown(find[0])
-        res += "<td>"+find[0]+kiik+" | <a href=\"http://127.0.0.1:5000/add-malicious-ip?ip="+find[0]+"\">Add</a> this IP to the malicious list"+"</td></tr>"
+        res += "<td><p id=\"x-sender-ip\">"+find[0]+"</p><button onclick=\"copyPaste()\">Copy</button>"+kiik+" | <a href=\"http://127.0.0.1:5000/add-malicious-ip?ip="+find[0]+"\">Add</a> this IP to the malicious list"+"</td></tr>"
 
     pattern = re.compile("X-Microsoft-Antispam: BCL:[0-9]{1,2}",flags=re.DOTALL)
     find = pattern.findall(email)
