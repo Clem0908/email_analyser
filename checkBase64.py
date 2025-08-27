@@ -8,7 +8,7 @@ def checkBase64(email: str):
     if "Content-Transfer-Encoding: base64" in email:
         
         ret = email[email.find("Content-Transfer-Encoding: base64")+len("Content-Transfer-Encoding: base64"):]
-        ret = ret.replace("\r","<br>") 
+        ret = ret.replace(">", "")
     else:
         
         ret = ""
