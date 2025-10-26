@@ -35,10 +35,6 @@ def checkSpecificMailHeaders(email: str):
             find[i] = find[i].replace("Received-SPF: ", "")
         for item in find:
             item += ", "
-        if not "pass" in find:
-            res += "<td style=\"color: red\"> "+str(find)+"</td></tr>"
-        else:
-            res += "<td style=\"color: green\"> "+str(find)+"</td></tr>"
 
     pattern = re.compile("From: [^>\r]*",flags=re.DOTALL)
     find = pattern.findall(email)
